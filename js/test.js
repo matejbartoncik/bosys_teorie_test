@@ -368,7 +368,7 @@
     container.innerHTML = topics.map((topic, ti) => `
       <div class="topic-card">
         <div class="topic-header">
-          <div class="topic-num">Otázka ${ti + 1} z 4</div>
+          <div class="topic-num">Otázka ${ti + 1} z 4 <span class="topic-okruh-badge">Okruh ${topic.id}</span></div>
           <h2>${escHtml(topic.title)}</h2>
         </div>
         <div class="topic-body">
@@ -435,7 +435,7 @@
     const container = document.getElementById('test-review-container');
     container.innerHTML = result.questions.map((t, ti) => `
       <div class="review-card">
-        <div class="review-topic-header">Otázka ${ti + 1}: ${escHtml(t.topic_title)}</div>
+        <div class="review-topic-header">Otázka ${ti + 1} <span class="topic-okruh-badge">Okruh ${t.topic_id}</span>: ${escHtml(t.topic_title)}</div>
         <div class="review-body">
           ${t.sub_questions.map(sq => `
             <div class="review-q">

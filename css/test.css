@@ -44,6 +44,19 @@
   line-height: 1.4;
 }
 
+.topic-okruh-badge {
+  display: inline-block;
+  margin-left: .5rem;
+  padding: .1rem .45rem;
+  border-radius: 4px;
+  background: rgba(255,255,255,.25);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  vertical-align: middle;
+  opacity: 1;
+}
+
 .topic-body {
   padding: 1.25rem 1.5rem;
 }

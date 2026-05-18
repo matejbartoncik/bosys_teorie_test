@@ -62,7 +62,7 @@
     selected = null;
     checked = false;
     const q = filtered[currentIndex];
-    questionEl.textContent = q.question;
+    questionEl.innerHTML = `<span class="abcd-section-badge">Okruh ${q.section_index}</span>${escHtml(q.question)}`;
 
     const opts = ['a','b','c','d'];
     optionsEl.innerHTML = opts.map(key => {

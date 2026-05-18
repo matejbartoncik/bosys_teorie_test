@@ -15,7 +15,7 @@
   let sectionSelect, shuffleBtn, progressLabel, cringeToggle;
   let cardScene, cardInner, cardFront, cardBack;
   let questionText, sectionLabel;
-  let answerWrapper, answerRevealLabel, answerTextEl;
+  let answerWrapper, answerRevealLabel, answerTextEl, backQuestion;
   let cringeArea, cringeTextarea, checkIndicator;
   let btnPrev, btnNext, btnContinue;
 
@@ -111,6 +111,7 @@
     const card = filteredCards[currentIndex];
     sectionLabel.textContent = `Sekce ${card.section_index}: ${card.section}`;
     questionText.textContent = card.question;
+    if (backQuestion) backQuestion.textContent = card.question;
     answerTextEl.textContent = card.answer;
     if (cringeTextarea) cringeTextarea.placeholder = card.answer;
     resetCardState();
@@ -122,6 +123,13 @@
     isFlipped = !isFlipped;
     cardInner.classList.toggle('flipped', isFlipped);
     cardScene.classList.toggle('flipped-mode', isFlipped);
+    if (isFlipped && !cringeMode) {
+      answerTextEl.classList.add('revealed');
+      answerRevealLabel.classList.add('revealed-state');
+    }
+    if (isFlipped && cringeMode && cringeTextarea) {
+      setTimeout(() => cringeTextarea.focus(), 50);
+    }
     updateNavButtons();
   }
 
@@ -217,8 +225,9 @@
           <div class="card-face card-back" id="k-back">
             <div class="card-band">Odpověď</div>
             <div class="card-body">
+              <div class="back-question" id="k-back-question"></div>
               <div class="answer-reveal-wrapper" id="k-answer-wrapper">
-                <div class="answer-reveal-label" id="k-reveal-label">Správná odpověď</div>
+                <div class="answer-reveal-label" id="k-reveal-label">Správná odpověď <kbd>Esc</kbd> / klikni</div>
                 <div class="answer-text" id="k-answer-text"></div>
               </div>
               <div class="cringe-area" id="k-cringe-area" style="display:none">
@@ -235,6 +244,11 @@
         <button class="btn btn-secondary btn-nav" id="k-prev">&#8592;</button>
         <button class="btn btn-secondary btn-nav" id="k-next">&#8594;</button>
       </div>
+      <div class="kbd-legend">
+        <span><kbd>Mezerník</kbd> otočit</span>
+        <span><kbd>←</kbd><kbd>→</kbd> navigace</span>
+        <span><kbd>Esc</kbd> zobrazit odpověď <em>(cringe mód)</em></span>
+      </div>
     `;
   }
 
@@ -250,6 +264,7 @@
     questionText    = document.getElementById('k-question');
     sectionLabel    = document.getElementById('k-section-label');
     answerWrapper   = document.getElementById('k-answer-wrapper');
+    backQuestion    = document.getElementById('k-back-question');
     answerRevealLabel = document.getElementById('k-reveal-label');
     answerTextEl    = document.getElementById('k-answer-text');
     cringeArea      = document.getElementById('k-cringe-area');
@@ -276,10 +291,15 @@
     });
     cringeTextarea.addEventListener('input', function () {
       clearTimeout(debounceTimer);
-      // Reveal answer text once user starts typing
-      answerTextEl.classList.add('revealed');
-      answerRevealLabel.classList.add('revealed-state');
       debounceTimer = setTimeout(checkAnswer, 300);
+    });
+    cringeTextarea.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        answerTextEl.classList.add('revealed');
+        answerRevealLabel.classList.add('revealed-state');
+        cringeTextarea.blur();
+      }
     });
     btnContinue.addEventListener('click', goNext);
     btnPrev.addEventListener('click', goPrev);
