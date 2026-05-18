@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OS – Studijní pomůcky</title>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/karticky.css">
+<link rel="stylesheet" href="css/abcd.css">
+<link rel="stylesheet" href="css/test.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <span class="navbar-brand">OS <span style="color:var(--clr-accent)">Zkouška</span></span>
+    <ul class="navbar-links" style="list-style:none;display:flex;gap:.25rem;margin:0;padding:0">
+      <li><a href="#karticky" class="nav-link" data-page="karticky">Kartičky</a></li>
+      <li><a href="#abcd" class="nav-link" data-page="abcd">ABCD Test</a></li>
+      <li><a href="#test" class="nav-link" data-page="test">Cvičný test</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="page-karticky" class="page"></div>
+<div id="page-abcd" class="page"></div>
+<div id="page-test" class="page"></div>
+
+<!-- Data -->
+<script src="data/karticky.js"></script>
+<script src="data/abcd.js"></script>
+
+<!-- Router (must come before page modules) -->
+<script src="js/router.js"></script>
+
+<!-- Page modules -->
+<script src="js/karticky.js"></script>
+<script src="js/abcd.js"></script>
+<script src="js/test.js"></script>
+
+<script>
+  // Boot the router after all modules are registered
+  Router.boot();
+</script>
+
+</body>
+</html>
