@@ -1,0 +1,197 @@
+/* Card flip 3D */
+.card-scene {
+  perspective: 1200px;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+  border-radius: var(--radius);
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-front {
+  background: var(--clr-surface);
+}
+
+.card-back {
+  background: var(--clr-surface);
+  transform: rotateY(180deg);
+}
+
+/* Adjust card-scene height based on content after flip */
+.card-scene.flipped-mode .card-inner {
+  position: relative;
+  min-height: 320px;
+}
+
+/* Card header band */
+.card-band {
+  background: linear-gradient(135deg, var(--clr-primary-dark), var(--clr-primary));
+  color: #fff;
+  padding: .75rem 1.25rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  opacity: .9;
+}
+
+/* Card body */
+.card-body {
+  padding: 1.5rem 1.5rem 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+/* Front question text */
+.card-question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--clr-text);
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card-hint {
+  font-size: .82rem;
+  color: var(--clr-muted);
+  text-align: center;
+  padding-top: .25rem;
+}
+
+/* Back: blurred answer */
+.answer-reveal-wrapper {
+  cursor: pointer;
+  position: relative;
+}
+
+.answer-reveal-label {
+  font-size: .78rem;
+  color: var(--clr-muted);
+  margin-bottom: .35rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.answer-reveal-label::after {
+  content: '(klikni pro zobrazení)';
+  opacity: .7;
+}
+
+.answer-reveal-label.revealed-state::after {
+  content: '(klikni pro skrytí)';
+}
+
+.answer-text {
+  background: #f7f9fc;
+  border-left: 3px solid var(--clr-primary);
+  padding: .7rem 1rem;
+  border-radius: 0 8px 8px 0;
+  font-size: .9rem;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  filter: blur(6px);
+  user-select: none;
+  transition: filter .25s;
+}
+
+.answer-text.revealed {
+  filter: none;
+  user-select: text;
+}
+
+/* Cringe mode textarea */
+.cringe-area {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.cringe-area textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: .6rem .85rem;
+  border: 1.5px solid var(--clr-border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: .9rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color .2s;
+  color: var(--clr-text);
+  background: #fafbfc;
+}
+
+.cringe-area textarea:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  background: var(--clr-surface);
+}
+
+.check-indicator {
+  font-size: .85rem;
+  font-weight: 600;
+  min-height: 1.2em;
+  transition: color .2s;
+}
+
+.check-indicator.ok { color: #1a7a40; }
+.check-indicator.fail { color: var(--clr-accent); }
+
+/* Navigation row */
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.nav-row .btn-nav {
+  min-width: 52px;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.nav-row .btn-center {
+  flex: 1;
+  justify-content: center;
+}
+
+/* Cringe toggle button */
+.cringe-toggle {
+  padding: .55rem 1rem;
+  font-size: .85rem;
+}
+
+.cringe-toggle.on {
+  background: #fff3cd;
+  border-color: #e6a800;
+  color: #5d4000;
+}

@@ -1,0 +1,154 @@
+/* ABCD quiz page styles */
+.abcd-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.abcd-card-header {
+  background: linear-gradient(135deg, var(--clr-primary-dark), var(--clr-primary));
+  color: #fff;
+  padding: .75rem 1.25rem;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.abcd-question {
+  padding: 1.25rem 1.5rem .75rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--clr-text);
+}
+
+.abcd-options {
+  padding: .25rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.abcd-option {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .8rem 1rem;
+  border: 2px solid var(--clr-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  background: var(--clr-surface);
+  text-align: left;
+  font-family: inherit;
+  font-size: .9rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.abcd-option:hover:not(.disabled) {
+  border-color: var(--clr-primary);
+  background: #f0f4ff;
+}
+
+.abcd-option.selected {
+  border-color: var(--clr-primary);
+  background: #e8f0fb;
+}
+
+.abcd-option.correct {
+  border-color: #1a7a40;
+  background: #eafaf1;
+}
+
+.abcd-option.wrong {
+  border-color: var(--clr-accent);
+  background: #fff0f3;
+}
+
+.abcd-option.disabled {
+  cursor: default;
+}
+
+.option-label {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--clr-bg);
+  border: 2px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .8rem;
+  color: var(--clr-primary);
+  text-transform: uppercase;
+  transition: background .15s, border-color .15s, color .15s;
+}
+
+.abcd-option.selected .option-label {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #fff;
+}
+
+.abcd-option.correct .option-label {
+  background: #1a7a40;
+  border-color: #1a7a40;
+  color: #fff;
+}
+
+.abcd-option.wrong .option-label {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: #fff;
+}
+
+.option-text {
+  flex: 1;
+  padding-top: .1rem;
+}
+
+/* Check / explanation area */
+.abcd-actions {
+  padding: .5rem 1rem 1rem;
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.abcd-explanation {
+  margin: 0 1rem 1rem;
+  background: #fffbea;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+  padding: .85rem 1rem;
+  font-size: .88rem;
+  line-height: 1.6;
+  color: #5d4000;
+  display: none;
+}
+
+.abcd-explanation.visible {
+  display: block;
+}
+
+/* Navigation row */
+.abcd-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: .25rem;
+}
+
+.abcd-nav-row .btn-nav {
+  min-width: 52px;
+  justify-content: center;
+  font-size: 1.1rem;
+}
