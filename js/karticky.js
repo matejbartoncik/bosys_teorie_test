@@ -15,7 +15,7 @@
   let sectionSelect, shuffleBtn, progressLabel, cringeToggle;
   let cardScene, cardInner, cardFront, cardBack;
   let questionText, sectionLabel;
-  let answerWrapper, answerRevealLabel, answerTextEl;
+  let answerWrapper, answerRevealLabel, answerTextEl, answerPlainEl;
   let cringeArea, cringeTextarea, checkIndicator;
   let btnPrev, btnNext, btnContinue;
 
@@ -112,6 +112,7 @@
     sectionLabel.textContent = `Sekce ${card.section_index}: ${card.section}`;
     questionText.textContent = card.question;
     answerTextEl.textContent = card.answer;
+    if (answerPlainEl) answerPlainEl.textContent = card.answer;
     if (cringeTextarea) cringeTextarea.placeholder = card.answer;
     resetCardState();
     updateProgress();
@@ -127,12 +128,15 @@
 
   function updateNavButtons() {
     const canNavigate = !isFlipped || !cringeMode || answerAccepted;
+
+    // Plain answer (no blur): cringe mode OFF, card flipped
+    if (answerPlainEl) answerPlainEl.style.display = (!cringeMode && isFlipped) ? '' : 'none';
+    // Blur wrapper: cringe mode ON only
+    const answerWrapper = document.getElementById('k-answer-wrapper');
+    if (answerWrapper) answerWrapper.style.display = cringeMode ? '' : 'none';
+
     if (btnContinue) {
-      if (isFlipped && !cringeMode) {
-        btnContinue.style.display = '';
-      } else {
-        btnContinue.style.display = 'none';
-      }
+      btnContinue.style.display = (isFlipped && !cringeMode) ? '' : 'none';
     }
     if (cringeArea) {
       cringeArea.style.display = (isFlipped && cringeMode) ? '' : 'none';
@@ -217,8 +221,11 @@
           <div class="card-face card-back" id="k-back">
             <div class="card-band">Odpověď</div>
             <div class="card-body">
+              <!-- Plain answer (cringe mode OFF) -->
+              <div class="answer-plain" id="k-answer-plain"></div>
+              <!-- Blurred reveal (cringe mode ON) -->
               <div class="answer-reveal-wrapper" id="k-answer-wrapper">
-                <div class="answer-reveal-label" id="k-reveal-label">Správná odpověď</div>
+                <div class="answer-reveal-label" id="k-reveal-label">Správná odpověď (klikni pro zobrazení)</div>
                 <div class="answer-text" id="k-answer-text"></div>
               </div>
               <div class="cringe-area" id="k-cringe-area" style="display:none">
@@ -252,6 +259,7 @@
     answerWrapper   = document.getElementById('k-answer-wrapper');
     answerRevealLabel = document.getElementById('k-reveal-label');
     answerTextEl    = document.getElementById('k-answer-text');
+    answerPlainEl   = document.getElementById('k-answer-plain');
     cringeArea      = document.getElementById('k-cringe-area');
     cringeTextarea  = document.getElementById('k-textarea');
     checkIndicator  = document.getElementById('k-check');
